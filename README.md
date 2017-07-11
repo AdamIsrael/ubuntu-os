@@ -4,12 +4,19 @@ This charm provides OS-specific functionality for users of Ubuntu. This can be u
 
 Goals:
 - Manage Kernel parameters (sysctl)
-- Enable unattended upgrades
+- ~~Enable unattended upgrades~~
 - Enable live kernel upgrades
 - Enable landscape
 - Expose OS metrics such as uptime and io (disk, network, etc) utilization.
 
 # Usage
+
+# Actions
+
+| Action        | Description           | Parameter(s)  |
+| ------------- |:-------------:| -----:|
+| enable-unattended-upgrades    |Enable unattended upgrades.| components, blacklist |
+| disable-unattended-upgrades   |Disable unattended upgrades| None |
 
 ## Known Limitations and Issues
 

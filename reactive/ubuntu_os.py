@@ -34,6 +34,19 @@ def install_vnf_ubuntu_proxy():
     #
     set_state('vnf-ubuntu-proxy.installed')
 
+@when('actions.disable-unattended-upgrades')
+def disable_unattended_upgrades():
+    """ """
+
+    try:
+        apt_purge(packages)
+        os.remove("/etc/apt/apt.conf.d/50unattended-upgrades")
+    except subprocess.CalledProcessError as e:
+        action_fail('Command failed: %s (%s)' %
+                    (' '.join(e.cmd), str(e.output)))
+    finally:
+        remove_state('actions.disable-unattended-upgrades')
+
 
 @when('actions.enable-unattended-upgrades')
 def enable_unattended_upgrades():
@@ -41,30 +54,24 @@ def enable_unattended_upgrades():
 
     try:
         packages = ['unattended-upgrades']
-        enable = action_get('enable')
-        if enable:
-            apt_install(packages)
+        apt_install(packages)
 
-            components = action_get("components").split(',')
-            components = list(filter(None, [x.strip(' ') for x in components]))
+        components = action_get("components").split(',')
+        components = list(filter(None, [x.strip(' ') for x in components]))
 
-            blacklist = action_get("blacklist").split(',')
-            blacklist = list(filter(None, [x.strip(' ') for x in blacklist]))
+        blacklist = action_get("blacklist").split(',')
+        blacklist = list(filter(None, [x.strip(' ') for x in blacklist]))
 
-            render(
-                "etc/apt/apt.conf.d/50unattended-upgrades",
-                "/etc/apt/apt.conf.d/50unattended-upgrades", {
-                    'components': components,
-                    'blacklist': blacklist,
-                }
-            )
-
-        else:
-            apt_purge(packages)
-            os.remove("/etc/apt/apt.conf.d/50unattended-upgrades")
+        render(
+            "etc/apt/apt.conf.d/50unattended-upgrades",
+            "/etc/apt/apt.conf.d/50unattended-upgrades", {
+                'components': components,
+                'blacklist': blacklist,
+            }
+        )
 
     except subprocess.CalledProcessError as e:
         action_fail('Command failed: %s (%s)' %
                     (' '.join(e.cmd), str(e.output)))
     finally:
-        remove_state('actions.run')
+        remove_state('actions.enable-unattended-upgrades')
