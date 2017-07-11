@@ -1,0 +1,12 @@
+name: ubuntu-os
+summary: A layer to enable functionality and manage an Ubuntu OS.
+maintainer: Adam Israel <adam.israel@canonical.com>
+description: A layer to enable functionality and manage an Ubuntu OS.
+tags:
+  # Replace "misc" with one or more whitelisted tags from this list:
+  # https://jujucharms.com/docs/stable/authors-charm-metadata
+  - misc
+series:
+  - trusty
+  - xenial
+subordinate: false

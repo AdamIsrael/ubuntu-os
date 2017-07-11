@@ -1,0 +1,13 @@
+metrics:
+    uptime:
+        type: gauge
+        description: "Seconds since the machine was rebooted."
+        command: awk '{print $1}' /proc/uptime
+    disk-io:
+        type: gauge
+        description: "Disk I/O Utilization"
+        command: ""
+    network-io:
+        type: gauge
+        description: "Network I/O Utilization"
+        command: ""

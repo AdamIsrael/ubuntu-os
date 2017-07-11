@@ -1,0 +1,15 @@
+enable-unattended-upgrades:
+    description: ""
+    params:
+        enable:
+            description: "Whether unattended upgrades should be enabled or not."
+            type: boolean
+            default: true
+        components:
+            description: "A comma-delimited list of components to enable unattended upgrades for."
+            type: string
+            default: "security"
+        blacklist:
+            description: "The packages to not automatically upgrade."
+            type: string
+            default: ""
