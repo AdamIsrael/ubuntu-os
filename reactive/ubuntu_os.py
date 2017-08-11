@@ -17,7 +17,7 @@ from charms.reactive import (
 from charms.templating.jinja2 import render
 
 import os
-
+import subprocess
 
 @when_not('vnf-ubuntu-proxy.installed')
 def install_vnf_ubuntu_proxy():
@@ -34,13 +34,11 @@ def install_vnf_ubuntu_proxy():
     #
     set_state('vnf-ubuntu-proxy.installed')
 
-
 @when('actions.disable-unattended-upgrades')
 def disable_unattended_upgrades():
     """ """
 
     try:
-        packages = ['unattended-upgrades']
         apt_purge(packages)
         os.remove("/etc/apt/apt.conf.d/50unattended-upgrades")
     except subprocess.CalledProcessError as e:
