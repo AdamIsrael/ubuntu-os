@@ -11,3 +11,7 @@ metrics:
         type: gauge
         description: "Network I/O Utilization"
         command: ""
+    users:
+        type: gauge
+        description: "Number of active users"
+        command: "w -h |wc -l"

@@ -8,6 +8,7 @@ Goals:
 - Enable live kernel upgrades
 - Enable landscape
 - Expose OS metrics such as uptime and io (disk, network, etc) utilization.
+- Support operation by proxy, such as VNF Configuration Charms that manage an application running on a separate host.
 
 # Usage
 

@@ -14,10 +14,20 @@ from charms.reactive import (
     when,
     when_not,
 )
+
+import charms.sshproxy
 from charms.templating.jinja2 import render
 
 import os
 import subprocess
+
+# def monkeypatch_Popen(self, args, bufsize=-1, executable=None, stdin=None, stdout=None, stderr=None, preexec_fn=None, close_fds=True, shell=False, cwd=None, env=None, universal_newlines=False, startupinfo=None, creationflags=0, restore_signals=True, start_new_session=False, pass_fds=(), *, encoding=None, errors=None):
+#     """All calls to Popen should be redirected to charms.sshproxy._run."""
+#     pass
+#
+#
+# subprocess.Popen.__init__ = monkeypatch_Popen
+
 
 @when_not('vnf-ubuntu-proxy.installed')
 def install_vnf_ubuntu_proxy():
@@ -34,11 +44,13 @@ def install_vnf_ubuntu_proxy():
     #
     set_state('vnf-ubuntu-proxy.installed')
 
+
 @when('actions.disable-unattended-upgrades')
 def disable_unattended_upgrades():
     """ """
 
     try:
+        packages = ['unattended-upgrades']
         apt_purge(packages)
         os.remove("/etc/apt/apt.conf.d/50unattended-upgrades")
     except subprocess.CalledProcessError as e:

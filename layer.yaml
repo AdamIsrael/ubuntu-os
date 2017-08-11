@@ -1,3 +1,4 @@
 includes:
  - layer:basic
- - layer:metrics
+ - layer:vnfproxy
+ - layer:sshproxy
